@@ -8,7 +8,7 @@ namespace vczh
 	template<typename T>
 	class gc_ptr;
 
-	struct gc_record
+    struct gc_record
 	{
 		void*				start = nullptr;
 		int					length = 0;
@@ -123,16 +123,18 @@ namespace vczh
 	};
 
 	template<typename T, typename ...TArgs>
-	gc_ptr<T> make_gc(TArgs&& ...args)
+    gc_ptr<T> make_gc(TArgs&& ...args) //大概是通过它来构造对象，使该对象接受管理
 	{
 		void* memory = malloc(sizeof(T));
-		gc_record record;
+        gc_record record; //先构造了一个这玩意，记录下一些关于对象的信息
+        //record里这点东西全是参数来的（这不踏马废话吗
 		record.start = memory;
 		record.length = sizeof(T);
-		unsafe_functions::gc_alloc(record);
+        unsafe_functions::gc_alloc(record);//丢进去开坑，里面会触发GC
 
+        //还没有看，不过看起来好像看不懂的样子，聪明的你请告诉我
 		T* reference = new(memory)T(std::forward<TArgs>(args)...);
-		enable_gc* e = static_cast<enable_gc*>(reference);
+        enable_gc* e = static_cast<enable_gc*>(reference);
 		record.handle = e;
 		e->set_record(record);
 		unsafe_functions::gc_register(memory, e);
@@ -154,5 +156,5 @@ namespace vczh
 		return gc_ptr<T>(dynamic_cast<T*>(ptr.reference));
 	}
 
-#define ENABLE_GC			public virtual ::vczh::enable_gc
+#define ENABLE_GC			public virtual ::vczh::enable_gc //加这个宏，使得新类从这里派生，然后可以cast到GC那边
 }

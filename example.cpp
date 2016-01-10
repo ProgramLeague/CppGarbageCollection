@@ -72,6 +72,7 @@ int main()
 	gc_start(step_size, max_size);
 	for (int i = 0; i < 65536; i++)
 	{
+        //通过make_gc构造
 		auto x = make_gc<B>(1);
 		auto y = make_gc<C>(2);
 		auto z = make_gc<D>(3);
