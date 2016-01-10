@@ -1,5 +1,6 @@
-###./CppGarbageCollection
-######// garbage collection library for C++
+CppGarbageCollection
+===============
+garbage collection library for C++
 ```c++
 #include "gc_ptr.h"
 
@@ -24,5 +25,11 @@ int main()
     gc_force_collect(); // will search and delete x and y here
     gc_stop(); // will call gc_force_collect()
 }
-
 ```
+
+在生产环境中使用需要添加的
+--------------
+* O1的标记整理
+* 分代
+* 内存池
+* 为了管理大量对象的更好数据结构
