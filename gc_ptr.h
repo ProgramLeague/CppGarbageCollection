@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 
-namespace vczh
+namespace cpp_gc
 {
 	struct gc_record;
 	class enable_gc;
@@ -156,5 +156,5 @@ namespace vczh
 		return gc_ptr<T>(dynamic_cast<T*>(ptr.reference));
 	}
 
-#define ENABLE_GC			public virtual ::vczh::enable_gc //加这个宏，使得新类从这里派生，然后可以cast到GC那边
+#define ENABLE_GC			public virtual ::cpp_gc::enable_gc //加这个宏，使得新类从这里派生，然后可以cast到GC那边
 }

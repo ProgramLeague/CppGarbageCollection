@@ -1,15 +1,10 @@
-#ifdef _MSC_VER
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
-#endif
 #include <assert.h>
 #include "gc_ptr.h"
 #include <iostream>
 #include <string>
 
 using namespace std;
-using namespace vczh;
+using namespace cpp_gc;
 
 class A : ENABLE_GC
 {
@@ -89,8 +84,5 @@ int main()
 		}
 	}
 	gc_stop();
-#ifdef _MSC_VER
-	_CrtDumpMemoryLeaks();
-#endif
 	return 0;
 }
